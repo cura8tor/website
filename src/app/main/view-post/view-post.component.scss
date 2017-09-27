@@ -1,0 +1,28 @@
+// component css goes here
+div{
+    &.main-img{
+        background-color: #f5f5f5;
+        padding: 10px 10px;
+        min-height: 100vh;
+    }
+
+    &.details{
+        padding: 50px 10px;
+        min-height: 100vh;
+        overflow: auto;
+    }
+
+    &.author-details{
+        border-bottom: solid thin #f5f5f5;
+        margin: 20px 0px;
+        padding-bottom: 20px;
+    }
+    &.author-meta{
+        padding-top:20px;
+    }
+    &.comments{
+        overflow:auto;
+        position:absolute;
+        
+    }
+}

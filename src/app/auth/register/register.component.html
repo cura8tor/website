@@ -1,0 +1,74 @@
+<form role="form" novalidate 
+(ngSubmit)="onSubmit(userData)" 
+[formGroup]="userData">
+        <div class="field">
+                <label class="label">Username</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input class="input is-success" 
+                    type="text" placeholder="Enter Username" 
+                    formControlName="username"/>
+                  <span class="icon is-small is-left">
+                    <i class="mdi mdi-account"></i>
+                  </span>
+                  <!--<span class="icon is-small is-right">
+                    <i class="mdi mdi-check"></i>
+                  </span>-->
+                </div>
+                <div *ngIf="userData.get('username').hasError('required') && userData.get('username').touched">
+                    <p class="help is-danger">This field is required</p>
+                </div>
+        </div>
+        <div class="field">
+                <label class="label">Password</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input class="input is-success" type="password" 
+                    placeholder="Enter Password" formControlName="password">
+                  <span class="icon is-small is-left">
+                    <i class="mdi mdi-lock"></i>
+                  </span>
+                </div>
+                <div *ngIf="userData.get('password').hasError('required') && userData.get('password').touched">
+                    <p class="help is-danger">This field is required</p>
+                </div>
+                <div *ngIf="userData.get('password').hasError('pattern') && userData.get('password').touched">
+                        <p class="help is-danger">
+                            Password must contain at least one uppercase letter, one symbol and one number. Password must also be at least 6 characters. Sorry, it's just to keep you safe.
+                        </p>
+                </div>
+        </div>
+
+        <div class="field">
+                <label class="label">Email</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input class="input is-success" type="email" 
+                    placeholder="Enter Password" formControlName="email">
+                  <span class="icon is-small is-left">
+                    <i class="mdi mdi-mail-ru"></i>
+                  </span>
+                </div>
+                
+                <div *ngIf="userData.get('email').hasError('required') && userData.get('email').touched">
+                    <p class="help is-danger">This field is required</p>
+                </div>
+                <div *ngIf="userData.get('email').hasError('email') && userData.get('email').touched">
+                        <p class="help is-danger">Invalid Email Address</p>
+                </div>
+        </div>
+
+        <div class="control text-center">
+            <button 
+                type="submit" 
+                [disabled]="userData.invalid" 
+                class="button is-primary">
+                Sign Up
+            </button>
+        </div>
+
+        <hr/>
+        <div class="text-center">
+            <h3>Or Sign Up with</h3>
+            <a class="button is-primary" style="background:#1d88b4">
+                <i class="mdi mdi-twitter" style="color:#73bbe7"></i> Sign Up with twitter
+            </a>
+        </div>
+</form>

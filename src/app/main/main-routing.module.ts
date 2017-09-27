@@ -4,7 +4,8 @@ import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent, children:[
-      {path:'', loadChildren:'./landing/landing.module#LandingModule'}
+      {path:'', loadChildren:'./landing/landing.module#LandingModule'},
+      {path:'view/:slug', loadChildren:'./view-post/view-post.module#ViewPostModule'}
   ]}
 ];
 

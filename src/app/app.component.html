@@ -1,2 +1,5 @@
-<header-component></header-component>
-  <router-outlet></router-outlet>
+<div style="min-height:100vh">
+    <header-component *ngIf="!hideHeader"></header-component>
+
+    <router-outlet></router-outlet>
+</div>
