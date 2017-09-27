@@ -1,0 +1,52 @@
+<div class="col-xs-12 no-padding user-details">
+    <div class="text-center">
+        <img 
+            src="http://bulma.io/images/placeholders/128x128.png" 
+            class="img-circle" 
+        />
+        <div class="user-meta">
+            <h1>User's Name</h1>
+            <h3>Location</h3>
+            <h2>
+                About user <br/>
+                <span>about</span>
+            </h2>
+        </div>
+        <hr/>
+        <div class="text-center">
+            <h1>Skills</h1>
+            <div class="field is-grouped is-grouped-multiline skills">
+                <skills *ngFor="let s of skillArr" [skillName]="s"></skills>
+            </div>
+            <h1>Social</h1>
+            <div class="social">
+                <a>
+                    <i class="mdi mdi-twitter"></i>
+                </a>
+                <a>
+                    <i class="mdi mdi-facebook"></i>
+                </a>
+                <a>
+                    <i class="mdi mdi-instagram"></i>
+                </a>
+                <a>
+                    <i class="mdi mdi-earth"></i>
+                </a>
+                <a>
+                    <i class="mdi mdi-linkedin-box"></i>
+                </a>
+            </div>
+        </div>       
+       
+    </div>
+</div>
+
+<div class="container-cura8tor">
+    <div class="main">
+        <ul id="og-grid" class="og-grid">
+            <li *ngFor="let p of posts" class="post">
+                <post-item></post-item>
+            </li>
+        </ul>
+    </div>
+</div>

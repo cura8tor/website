@@ -1,0 +1,46 @@
+// component css goes here
+@import '../../../styles/colors';
+
+div{
+    &.user-details{
+        background-color: #f5f5f5;
+        padding: 50px 20px;
+    }
+    &.user-meta{
+        h1{
+            font-size: 30px;
+        }
+        h2{
+            font-size: 20px;
+            span{
+                font-size: 14px;
+            }
+        }
+        h3{
+            font-size: 20px;
+            color: #ccc;
+        }
+    }
+    &.skills{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        padding: 20px 0px;
+
+    }
+    &.control{
+        margin-right: 0.75em;
+    }
+    &.social{
+        i{
+            font-size: xx-large;
+            &:hover{
+                color:$dark_blue;
+            }
+        }
+    }
+}
+
+span.tag.is-info{
+    background-color: $deep_blue !important;
+}
