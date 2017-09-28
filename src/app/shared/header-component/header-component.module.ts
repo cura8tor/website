@@ -4,11 +4,13 @@ import {CommonModule} from '@angular/common';
 // This Module's Components
 import { HeaderComponentComponent } from './header-component.component';
 import { RouterModule } from '@angular/router';
+import {NotificationModule} from '../../services/notification/notification.module';
 
 @NgModule({
     imports: [
         RouterModule,
-        CommonModule
+        CommonModule,
+        NotificationModule
     ],
     declarations: [
         HeaderComponentComponent,

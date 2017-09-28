@@ -26,13 +26,32 @@ h1{
     margin-left: 5px !important;
     font-size: 40px !important;
 }
-a.hoverable{
-    transition: width .1s ease, border-bottom .1s ease;
-    &:hover{
-        border-bottom: {
-            style:solid;
-            color:$dark_blue;
+a{
+    &.hoverable{
+        transition: width .1s ease, border-bottom .1s ease;
+        &:hover{
+            border-bottom: {
+                style:solid;
+                color:$dark_blue;
+            }
+            padding-bottom:15px;
         }
-        padding-bottom:15px;
+    }
+    &.button.is-danger{
+        margin:0px;
+        margin-top:10px;
+    }
+    &.user-avatar{
+        margin-top:7px !important;
+        img{
+            max-height: initial;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .navbar-dropdown {
+        left: initial;
+        right: 0;
     }
 }

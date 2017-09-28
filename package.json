@@ -28,6 +28,8 @@
     "firebase": "^4.4.0",
     "hammerjs": "^2.0.8",
     "ng2-page-transition": "^1.1.0",
+    "ngx-dropzone-wrapper": "^4.6.4",
+    "ngxani": "^1.2.2",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.14"
   },

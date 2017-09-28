@@ -9,10 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FooterComponentModule,HeaderComponentModule} from './shared';
+import {GlobalEmitterService} from './services';
 
 import { Ng2PageTransitionModule } from "ng2-page-transition";
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import { NgxAniModule } from 'ngxani';
 
 @NgModule({
   declarations: [
@@ -27,9 +30,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     Ng2PageTransitionModule,
     BrowserAnimationsModule,
     HeaderComponentModule,
-    FooterComponentModule
+    FooterComponentModule,
+    NgxAniModule
   ],
-  providers: [],
+  providers: [GlobalEmitterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

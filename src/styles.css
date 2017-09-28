@@ -24,3 +24,6 @@
 div.main{
     padding: 0px 50px
 }
+textarea{
+    resize: none !important;
+}

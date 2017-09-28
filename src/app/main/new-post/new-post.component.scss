@@ -1,0 +1,45 @@
+// component css goes here
+h1{
+    font-size: 30px;
+}
+div{
+    &.description{
+        font-size: 22px;
+        font-weight: 400;
+        padding: 40px;
+    }
+    &.row{
+        margin-top: 70px;
+        margin-bottom: 50px;
+    }
+    &.input-row{
+        margin-bottom:30px !important;
+    }
+    &.div-select{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+input.title{
+    width: 100%;
+    border: none;
+    font-size: -webkit-xxx-large;
+    outline:none;
+}
+
+a.social-share{
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+
+    i{
+        font-size: 40px;
+        &:hover{
+            color: #1b95e0;
+        }
+        &.selected{
+            color: #1b95e0;
+        }
+    }
+}

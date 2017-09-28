@@ -1,0 +1,4 @@
+<div class="{{'notification '+config.type}}" [@shrinkOut]="'in'">
+    <button class="delete" (click)="closeMe()"></button>
+    <div [innerHTML]="config.message"></div>
+</div>

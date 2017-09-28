@@ -1,6 +1,11 @@
+    <notification *ngIf="notificationVisible === true" 
+                  (close)="_hideNotification()"
+                  [config]="notificationData">
+    </notification>
 
         <nav class="navbar is-transparent">
                 <div class="navbar-brand">
+
                         <a class="navbar-item" [routerLink]="['/']">
                           <h2>Cura8tor</h2>
                         </a>
@@ -17,7 +22,7 @@
                           </span>
                         </a>
                     
-                        <div class="navbar-burger burger" data-target="navMenuTransparentExample">
+                        <div class="navbar-burger burger"   data-target="navMenuTransparentExample">
                           <span></span>
                           <span></span>
                           <span></span>
@@ -28,7 +33,7 @@
                         <a class="navbar-item hoverable" [routerLink]="['/ddd']">
                             Discover
                         </a>
-                        <a class="navbar-item hoverable" href="http://bulma.io/expo/">
+                        <a class="navbar-item hoverable" (click)="test()">
                             Search
                         </a>
                     </div>
@@ -44,6 +49,7 @@
                     <a class="navbar-item social" href="http://bulma.io/expo/">
                         <i class="mdi mdi-github-circle"></i>
                     </a>
+                    
                     <a class="navbar-item hoverable" 
                         [routerLink]="['/auth/register']">
                         Sign Up
@@ -51,5 +57,31 @@
                     <a class="navbar-item hoverable" [routerLink]="['/auth/login']">
                         Sign In
                     </a>
+                    <!--
+                        when logged in
+
+                        <a class="navbar-item social" href="http://bulma.io/expo/">
+                        <i class="mdi mdi-bell"></i>
+                    </a>
+                    <a class="button is-danger">
+                        <i class="mdi mdi-plus"></i> New Post
+                    </a>
+                    <div class="navbar-item has-dropdown is-right is-hoverable">
+                        <a class="user-avatar is-active">
+                            <img class="img-circle"
+                            src="http://bulma.io/images/placeholders/128x128.png" 
+                            width="50"/>
+                        </a>
+                    
+                        <div class="navbar-dropdown is-boxed">
+                          <a class="navbar-item " href="/documentation/overview/start/">
+                            Profile
+                          </a>
+                          <a class="navbar-item " href="/documentation/overview/start/">
+                            Logout
+                          </a>
+                        </div>
+                    </div>-->
+
                 </div>           
         </nav>
