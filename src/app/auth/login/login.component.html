@@ -2,19 +2,19 @@
 (ngSubmit)="onSubmit(userData)" 
 [formGroup]="userData">
         <div class="field">
-                <label class="label">Username</label>
+                <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
                   <input class="input is-success" 
-                    type="text" placeholder="Enter Password" 
-                    formControlName="username"/>
+                    type="text" placeholder="Enter email" 
+                    formControlName="email"/>
                   <span class="icon is-small is-left">
-                    <i class="mdi mdi-account"></i>
+                    <i class="mdi mdi-mail-ru"></i>
                   </span>
                   <!--<span class="icon is-small is-right">
                     <i class="mdi mdi-check"></i>
                   </span>-->
                 </div>
-                <div *ngIf="userData.get('username').hasError('required')">
+                <div *ngIf="userData.get('email').hasError('required') && userData.get('email').touched">
                     <p class="help is-danger">This field is required</p>
                 </div>
         </div>
@@ -27,7 +27,7 @@
                     <i class="mdi mdi-lock"></i>
                   </span>
                 </div>
-                <div *ngIf="userData.get('password').hasError('required')">
+                <div *ngIf="userData.get('password').hasError('required') && userData.get('email').touched">
                     <p class="help is-danger">This field is required</p>
                 </div>
         </div>
@@ -43,7 +43,7 @@
         <hr/>
         <div class="text-center">
             <h3>Or Sign in with</h3>
-            <a class="button is-primary" style="background:#1d88b4">
+            <a class="button is-primary" style="background:#1d88b4" (click)="twitterAuth()">
                 <i class="mdi mdi-twitter" style="color:#73bbe7"></i> Sign In with twitter
             </a>
         </div>

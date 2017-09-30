@@ -50,17 +50,18 @@
                         <i class="mdi mdi-github-circle"></i>
                     </a>
                     
-                    <a class="navbar-item hoverable" 
-                        [routerLink]="['/auth/register']">
-                        Sign Up
-                    </a>
-                    <a class="navbar-item hoverable" [routerLink]="['/auth/login']">
-                        Sign In
-                    </a>
-                    <!--
-                        when logged in
-
-                        <a class="navbar-item social" href="http://bulma.io/expo/">
+                    <div style="display:flex" *ngIf="!isUserSignedIn">
+                        <a class="navbar-item hoverable" 
+                            [routerLink]="['/auth/register']">
+                            Sign Up
+                        </a>
+                        <a class="navbar-item hoverable" [routerLink]="['/auth/login']">
+                            Sign In
+                        </a>
+                    </div>
+                
+                <div style="display:flex" *ngIf="isUserSignedIn">
+                    <a class="navbar-item social" href="http://bulma.io/expo/">
                         <i class="mdi mdi-bell"></i>
                     </a>
                     <a class="button is-danger">
@@ -69,19 +70,21 @@
                     <div class="navbar-item has-dropdown is-right is-hoverable">
                         <a class="user-avatar is-active">
                             <img class="img-circle"
-                            src="http://bulma.io/images/placeholders/128x128.png" 
+                            [src]="userImage" 
+                            onError="this.src='http://bulma.io/images/placeholders/128x128.png'"
                             width="50"/>
                         </a>
                     
                         <div class="navbar-dropdown is-boxed">
-                          <a class="navbar-item " href="/documentation/overview/start/">
+                          <a class="navbar-item " (click)="showProfile()">
                             Profile
                           </a>
-                          <a class="navbar-item " href="/documentation/overview/start/">
+                          <a class="navbar-item " (click)="logout()">
                             Logout
                           </a>
                         </div>
-                    </div>-->
+                    </div>
+                </div>
 
                 </div>           
         </nav>

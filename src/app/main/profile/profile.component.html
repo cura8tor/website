@@ -1,11 +1,13 @@
 <div class="col-xs-12 no-padding user-details">
+    <!-- show loader here -->
     <div class="text-center">
-        <img 
-            src="http://bulma.io/images/placeholders/128x128.png" 
+        <img *ngIf="loading === false"
+            [src]="user.photoURL"
+            onerror="this.src='http://bulma.io/images/placeholders/128x128.png'" 
             class="img-circle" 
         />
         <div class="user-meta">
-            <h1>User's Name</h1>
+            <h1 *ngIf="loading === false">{{user.displayName}}e</h1>
             <h3>Location</h3>
             <h2>
                 About user <br/>

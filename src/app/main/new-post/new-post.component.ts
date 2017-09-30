@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit,OnInit } from '@angular/core';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import * as Dropzone from 'dropzone';
-import {NotificationService,CONSTANTS} from '../../services';
+import {NotificationService,CONSTANTS,StorageService} from '../../services';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import * as firebase from 'firebase/app'; // for typings
@@ -10,7 +10,8 @@ import { FirebaseApp } from 'angularfire2'; // for methods
     moduleId: module.id,
     selector: 'new-post',
     templateUrl: 'new-post.component.html',
-    styleUrls: ['new-post.component.scss']
+    styleUrls: ['new-post.component.scss'],
+    providers:[StorageService]
 })
 export class NewPostComponent implements AfterViewInit, OnInit{
 
@@ -38,7 +39,8 @@ export class NewPostComponent implements AfterViewInit, OnInit{
 
     constructor(private _notifService:NotificationService, 
                 private fbuilder:FormBuilder,
-                private fb: FirebaseApp){
+                private fb: FirebaseApp,
+                private storage:StorageService){
         Dropzone.autoDiscover = false
     }
 
@@ -70,16 +72,9 @@ export class NewPostComponent implements AfterViewInit, OnInit{
         let storageRef = this.fb.storage().ref();
         const imagesRef = storageRef.child('posts');
         const files:Array<any> = this.dpzObject.files
-        files.forEach(f=>{
-            const {dataURL} = f
-            imagesRef.putString(dataURL, 'data_url').then(s=>console.log(s));
-        })
-
-        /*if(this.dpzObject.files.length < 1){
-            this._notifService.sendMessage(this._notifService.types.danger, '<div class="text-center"><i class="mdi mdi-image"></i>You must upload images.</div>')
-        }else{
-            const dataStore = {images:this.dpzObject.files, twitterShare:this.socialShare, value}    
-        }*/
-        
+        this.storage.storeItems(files).subscribe(
+            s=>console.log(s),
+            e=>console.log(e)
+        )        
     }
 }
