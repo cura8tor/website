@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {GlobalEmitterService} from '../../services';
+import {NotificationService} from '../../services';
 
 @Component({
     moduleId: module.id,
@@ -12,7 +12,7 @@ export class HeaderComponentComponent {
     notificationData:{type:string, message:string} = { type:'', message:''};
     notificationVisible:boolean = false;
 
-    constructor(private _notifService:GlobalEmitterService){
+    constructor(private _notifService:NotificationService){
         const eventHandler = (t)=>{
             Object.assign(this.notificationData, t)
             this._showNotification()

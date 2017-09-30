@@ -1,63 +1,73 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit,OnInit } from '@angular/core';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import * as Dropzone from 'dropzone';
+import {NotificationService,CONSTANTS} from '../../services';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+
 @Component({
     moduleId: module.id,
     selector: 'new-post',
     templateUrl: 'new-post.component.html',
     styleUrls: ['new-post.component.scss']
 })
-export class NewPostComponent {
+export class NewPostComponent implements AfterViewInit, OnInit{
 
-    private DROPZONE_CONFIG: DropzoneConfigInterface = {
-        url:null,
-        maxFilesize: 50,
+    DROPZONE_CONFIG: DropzoneConfigInterface = {
+        url:'no-url',
+        maxFilesize: 10,
         acceptedFiles: 'image/*',
         autoProcessQueue: false,
+        addRemoveLinks:true,
+        maxFiles: 4
     };
 
     socialShare:boolean = false;
+    files:Array<File> = [];
+    dpzObject;
+    @ViewChild('dropzoneObject') dropzoneObject;
+    filesExceeded:boolean = false;
+    userData:FormGroup;
 
-    projectType:Array<string> = [
-        'Animation',
-        'Augumented Reality (AR)',
-        'App',
-        'Article',
-        'Experiment',
-        'Framework',
-        'Library',
-        'Illustration',
-        'Guide',
-        'Landing Page',
-        'User Interface',
-        'Extension',
-        'Open-source app',
-        'Snippet',
-        'Software',
-        'Style Guide',
-        'Tutorial',
-        'Freebie',
-        'Website'
-    ]
+    projectType:Array<string> = CONSTANTS.PROJECT_TYPE.sort();
 
-    platforms:Array<string> = [
-        'Android',
-        'iOs',
-        'Web',
-        'Mac',
-        'Any Platform'
-    ]
+    platforms:Array<string> = CONSTANTS.PLATFORMS.sort();
 
     image:string = 'assets/images/assetsdrag.png'
+
+    constructor(private _notifService:NotificationService, private fbuilder:FormBuilder){
+        Dropzone.autoDiscover = false
+    }
+
+    ngAfterViewInit(): void {
+        this.dpzObject = this.dropzoneObject.directiveRef.dropzone
+    }
 
     toggleSocialShare () {
         this.socialShare = !this.socialShare
     }
 
-    onUploadError(evt) {
-        
+    onFilesExceeded(evt) {
+        this.filesExceeded = true
+        this.dpzObject.removeFile(evt)
     }
 
-    onUploadSuccess (evt){
+    ngOnInit(): void {
+        this.userData = this.fbuilder.group({
+            title:[null, Validators.required],
+            description:[null, Validators.required],
+            tags:[null],
+            demo:[null],
+            postType:[this.projectType[0]],
+            platform:[this.platforms[0]]
+        })
+    }
 
+    onSubmit ({value}) {
+        if(this.dpzObject.files.length < 1){
+            this._notifService.sendMessage(this._notifService.types.danger, '<div class="text-center"><i class="mdi mdi-image"></i>You must upload images.</div>')
+        }else{
+            const dataStore = {images:this.dpzObject.files, twitterShare:this.socialShare, value}    
+        }
+        
     }
 }

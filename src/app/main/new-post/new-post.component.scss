@@ -1,4 +1,6 @@
 // component css goes here
+@import '../../../styles/colors';
+
 h1{
     font-size: 30px;
 }
@@ -41,5 +43,15 @@ a.social-share{
         &.selected{
             color: #1b95e0;
         }
+    }
+}
+
+button{
+    &.button{
+        font-size: 30px;
+        background:$light_purple;
+    }
+    &.button:hover{
+        background: darken($light_purple, 4);
     }
 }

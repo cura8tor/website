@@ -2,28 +2,32 @@
     <div class="row">
         <h1>Create New Post</h1>
         <div class="description">
-            Upload a clear, high quality image. The first image will be the display image for your design.
+            Upload a clear, high quality image. The first image will be the display image for your design. <span style="color:#ff3860">You can only upload four (4) images.</span>
         </div>
-            <form>
-                <!--<dropzone [config]="DROPZONE_CONFIG"
-                        [message]="'Click or drag images here to upload'" 
-                        (error)="onUploadError($event)" 
-                        (success)="onUploadSuccess($event)">
-                </dropzone>-->
+            <form novalidate
+            (ngSubmit)="onSubmit(userData)" 
+            [formGroup]="userData" role="form">
                 <div class="col-xs-12 col-lg-6 col-md-8 center-div ">
                     <div class="col-xs-12 input-row">
-                        <img [src]="image" alt="Upload Image"/>
+
+                        <dropzone [config]="DROPZONE_CONFIG"                            
+                            (maxfilesexceeded)="onFilesExceeded($event)"
+                            [placeholder]="image"
+                            [message]="''" #dropzoneObject>
+                        </dropzone>
+                        <!--<img [src]="image" alt="Upload Image"/> (addedfile)="onFileAdded($event)"-->
                     </div>
 
                     <div class="form-control col-xs-12 input-row">
-                        <input type="text" class="title" placeholder="Enter Post Title" autofocus/>
+                        <input type="text" class="title" formControlName="title"
+                                placeholder="Enter Post Title" autofocus/>
                     </div>
 
                     <div class="col-xs-12 input-row">
                         <div class="field">
                             <div class="control">
                               <textarea class="textarea is-medium" 
-                                type="text" 
+                                type="text" formControlName="description"
                                 placeholder="Describe this post. Be brief but on point..."></textarea>
                             </div>
                         </div>
@@ -33,7 +37,7 @@
                         <div class="field">
                             <div class="control">
                                 <input class="input is-medium" 
-                                        type="text" 
+                                        type="text" formControlName="tags"
                                         placeholder="Enter Tags separated by comma (,) e.g. UI, Motion, 3d, VR etc."/>
                             </div>
                         </div>
@@ -43,7 +47,7 @@
                         <div class="field">
                             <div class="control">
                                 <input class="input is-medium" 
-                                        type="text" 
+                                        type="text" formControlName="demo"
                                         placeholder="Project website or demo url e.g. https://github.com/someProject"/>
                             </div>
                         </div>
@@ -55,7 +59,7 @@
                                     <label>Post Type</label>
                                 <div class="control">
                                     <div class="select is-medium is-fullwidth">
-                                        <select>
+                                        <select formControlName="postType">
                                           <option *ngFor="let project of projectType">
                                               {{project}}
                                           </option>
@@ -69,7 +73,7 @@
                                 <div class="control has-icons-left">
                                     <div class="select is-medium is-fullwidth">
                                         
-                                        <select class="">
+                                        <select formControlName="platform">
                                           <option *ngFor="let platform of platforms">{{platform}}</option>
                                         </select>
                                     </div>
@@ -92,7 +96,7 @@
                     </div>
 
                     <div class="col-xs-12 input-row text-center">
-                        <button type="submit" class="button is-info">
+                        <button type="submit" class="button is-info" [disabled]="!userData.valid">
                             Create Post
                         </button>
                     </div>

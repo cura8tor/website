@@ -20,8 +20,7 @@ export class NotificationComponent {
     close:EventEmitter<boolean> = new EventEmitter();
 
     @Input()
-    config:{type:string, message:string} = {type:'is-primary', message:`Why are you. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
-    consectetur adipiscing elit`}
+    config:{type:string, message:string} = {type:'is-primary', message:``}
     
     closeMe(){
         this.close.emit(true)
