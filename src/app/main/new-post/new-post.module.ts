@@ -5,7 +5,8 @@ import {ReactiveFormsModule} from '@angular/forms'
 import { NewPostComponent } from './new-post.component';
 import { NewPostRoutingModule } from './new-post-routing.module';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
-//import {NotificationService} from '../../services';
+
+import 'firebase/storage';
 
 @NgModule({
     imports: [

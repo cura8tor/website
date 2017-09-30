@@ -4,6 +4,8 @@ import * as Dropzone from 'dropzone';
 import {NotificationService,CONSTANTS} from '../../services';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
+import * as firebase from 'firebase/app'; // for typings
+import { FirebaseApp } from 'angularfire2'; // for methods
 @Component({
     moduleId: module.id,
     selector: 'new-post',
@@ -34,7 +36,9 @@ export class NewPostComponent implements AfterViewInit, OnInit{
 
     image:string = 'assets/images/assetsdrag.png'
 
-    constructor(private _notifService:NotificationService, private fbuilder:FormBuilder){
+    constructor(private _notifService:NotificationService, 
+                private fbuilder:FormBuilder,
+                private fb: FirebaseApp){
         Dropzone.autoDiscover = false
     }
 
@@ -63,11 +67,19 @@ export class NewPostComponent implements AfterViewInit, OnInit{
     }
 
     onSubmit ({value}) {
-        if(this.dpzObject.files.length < 1){
+        let storageRef = this.fb.storage().ref();
+        const imagesRef = storageRef.child('posts');
+        const files:Array<any> = this.dpzObject.files
+        files.forEach(f=>{
+            const {dataURL} = f
+            imagesRef.putString(dataURL, 'data_url').then(s=>console.log(s));
+        })
+
+        /*if(this.dpzObject.files.length < 1){
             this._notifService.sendMessage(this._notifService.types.danger, '<div class="text-center"><i class="mdi mdi-image"></i>You must upload images.</div>')
         }else{
             const dataStore = {images:this.dpzObject.files, twitterShare:this.socialShare, value}    
-        }
+        }*/
         
     }
 }
