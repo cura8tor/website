@@ -30,6 +30,7 @@ export class NewPostComponent implements AfterViewInit, OnInit{
     @ViewChild('dropzoneObject') dropzoneObject;
     filesExceeded:boolean = false;
     userData:FormGroup;
+    newCollection:boolean;
 
     projectType:Array<string> = CONSTANTS.PROJECT_TYPE.sort();
 
@@ -64,7 +65,9 @@ export class NewPostComponent implements AfterViewInit, OnInit{
             tags:[null],
             demo:[null],
             postType:[this.projectType[0]],
-            platform:[this.platforms[0]]
+            platform:[this.platforms[0]],
+            collectionSelect:[null],
+            collectionName:[null]
         })
     }
 
@@ -76,5 +79,9 @@ export class NewPostComponent implements AfterViewInit, OnInit{
             s=>console.log(s),
             e=>console.log(e)
         )        
+    }
+
+    changeCollection (evt) {
+        console.log(evt)
     }
 }

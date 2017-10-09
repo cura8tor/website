@@ -33,7 +33,7 @@
                         <a class="navbar-item hoverable" [routerLink]="['/ddd']">
                             Discover
                         </a>
-                        <a class="navbar-item hoverable" (click)="test()">
+                        <a class="navbar-item hoverable">
                             Search
                         </a>
                     </div>
@@ -64,7 +64,7 @@
                     <a class="navbar-item social" href="http://bulma.io/expo/">
                         <i class="mdi mdi-bell"></i>
                     </a>
-                    <a class="button is-danger">
+                    <a class="button is-danger" [routerLink]="['post']">
                         <i class="mdi mdi-plus"></i> New Post
                     </a>
                     <div class="navbar-item has-dropdown is-right is-hoverable">

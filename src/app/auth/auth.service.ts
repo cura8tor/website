@@ -37,7 +37,7 @@ export class AuthService {
             .catch(error=>this.handleError(error))
     }
 
-    login ({email, password}){
+    login ({email, password}):void{
         this.afAuth.auth
             .signInWithEmailAndPassword(email, password)
             .then(user=>{

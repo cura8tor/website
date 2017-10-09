@@ -8,6 +8,37 @@
             (ngSubmit)="onSubmit(userData)" 
             [formGroup]="userData" role="form">
                 <div class="col-xs-12 col-lg-6 col-md-8 center-div ">
+
+                    <div class="form-control col-xs-12 input-row">
+
+                    <div class="col-xs-6">
+                        <div class="field">
+                            <label>Collection Name</label>
+                            <div class="control">
+                                <div class="select is-medium is-fullwidth">
+                                    <select formControlName="collectionSelect" (change)="changeCollection()">
+                                        <option *ngFor="let project of projectType">
+                                            {{project}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <div class="field">
+                                <label>New Collection Name</label>
+                                <div class="control">
+                                    <input class="input is-medium" 
+                                            type="text" formControlName="collectionName"
+                                            placeholder=""
+                                    />
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+
                     <div class="col-xs-12 input-row">
 
                         <dropzone [config]="DROPZONE_CONFIG"                            
@@ -15,7 +46,7 @@
                             [placeholder]="image"
                             [message]="''" #dropzoneObject>
                         </dropzone>
-                        <!--<img [src]="image" alt="Upload Image"/> (addedfile)="onFileAdded($event)"-->
+                       
                     </div>
 
                     <div class="form-control col-xs-12 input-row">

@@ -1,5 +1,6 @@
 const GENERAL = {
-    PROFILE:'profile/'
+    PROFILE:'profile/',
+    post:'post'
 }
 
 export const LINKS = {
