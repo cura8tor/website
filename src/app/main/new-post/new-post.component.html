@@ -13,25 +13,27 @@
 
                     <div class="col-xs-6">
                         <div class="field">
-                            <label>Collection Name</label>
+                            <label>Collection Category</label>
                             <div class="control">
                                 <div class="select is-medium is-fullwidth">
-                                    <select formControlName="collectionSelect" (change)="changeCollection()">
-                                        <option *ngFor="let project of projectType">
-                                            {{project}}
+                                    <select formControlName="collectionName" 
+                                            (change)="changeCollection($event.target.value)">
+                                        <option *ngFor="let c of collections">
+                                            {{c}}
                                         </option>
+                                        <option>{{newCollectionString}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-xs-6">
+                    <div class="col-xs-6" *ngIf="showNewCollectionInput === true">
                         <div class="field">
                                 <label>New Collection Name</label>
                                 <div class="control">
                                     <input class="input is-medium" 
-                                            type="text" formControlName="collectionName"
+                                            type="text" formControlName="collectionNew"
                                             placeholder=""
                                     />
                                 </div>

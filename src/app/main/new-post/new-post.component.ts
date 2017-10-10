@@ -1,11 +1,15 @@
 import { Component, ViewChild, AfterViewInit,OnInit } from '@angular/core';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import * as Dropzone from 'dropzone';
-import {NotificationService,CONSTANTS,StorageService} from '../../services';
+import {NotificationService,CONSTANTS,StorageService,CollectionService} from '../../services';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import * as firebase from 'firebase/app'; // for typings
 import { FirebaseApp } from 'angularfire2'; // for methods
+import { NewPostService } from './new-post.service';
+import { AngularFireAuth } from 'angularfire2/auth'
+import { Observable } from 'rxjs/Observable';
+
 @Component({
     moduleId: module.id,
     selector: 'new-post',
@@ -31,6 +35,9 @@ export class NewPostComponent implements AfterViewInit, OnInit{
     filesExceeded:boolean = false;
     userData:FormGroup;
     newCollection:boolean;
+    collections:Array<string> = [];
+    newCollectionString:string = 'Add New Collection';
+    showNewCollectionInput:boolean = false;
 
     projectType:Array<string> = CONSTANTS.PROJECT_TYPE.sort();
 
@@ -41,8 +48,17 @@ export class NewPostComponent implements AfterViewInit, OnInit{
     constructor(private _notifService:NotificationService, 
                 private fbuilder:FormBuilder,
                 private fb: FirebaseApp,
-                private storage:StorageService){
+                private storage:StorageService,
+                private newPostService:NewPostService,
+                private colService:CollectionService,
+                private afAuth:AngularFireAuth){
         Dropzone.autoDiscover = false
+        
+        /*this.afAuth.authState.subscribe(s=>{
+            this.colService.createCollection('Some collection', s.uid).subscribe(
+                s=>console.log(s)
+            )
+        })*/
     }
 
     ngAfterViewInit(): void {
@@ -66,22 +82,67 @@ export class NewPostComponent implements AfterViewInit, OnInit{
             demo:[null],
             postType:[this.projectType[0]],
             platform:[this.platforms[0]],
-            collectionSelect:[null],
-            collectionName:[null]
+            collectionName:[null],
+            collectionNew:[null]
+        })
+
+        this.afAuth.authState.subscribe(s=>{
+            this.colService.fetchCollection(s.uid).subscribe(
+                s=>{
+                    if(s.val()){//if its more than one, set the reactive form value as well
+                        
+                        s.forEach(c => {
+                            this.userData.controls['collectionName'].setValue(s.val()[Object.keys(s.val())[0]].collectionName)
+        
+                            this.collections.push(c.val().collectionName)
+                        });
+                    } else {// if none, set reactive form value to add new...
+                        this.userData.controls['collectionName'].setValue(this.newCollectionString)
+                    }
+                }
+            )
         })
     }
 
     onSubmit ({value}) {
         let storageRef = this.fb.storage().ref();
-        const imagesRef = storageRef.child('posts');
+        const imagesRef = storageRef.child('items');
         const files:Array<any> = this.dpzObject.files
-        this.storage.storeItems(files).subscribe(
-            s=>console.log(s),
-            e=>console.log(e)
-        )        
+
+        let tempData = {collectionName:'', collectionNew:'', image:[]};
+        Object.assign(tempData, value)
+
+        if(this.showNewCollectionInput){
+            tempData.collectionName = value.collectionNew
+        }
+        delete tempData.collectionNew
+
+        console.log(tempData)
+
+        this.afAuth.authState.subscribe(user=>{
+            const itm = this.storage.storeItems(files, user.uid)
+                        .map((s:Array<any>)=>{
+                            console.log(s)
+                            const imagesArr = []
+                            s.forEach(({downloadURL, ref})=>{
+                                imagesArr.push({downloadURL, name: ref.name})
+                            })
+                            
+                            tempData.image = imagesArr
+
+                            this.newPostService.createItem(tempData, user.uid).subscribe(
+                                s=>console.log(s),
+                                e=>console.log(e)
+                            )
+                        })
+        })  
     }
 
     changeCollection (evt) {
-        console.log(evt)
+        if(evt === this.newCollectionString){
+            this.showNewCollectionInput = true
+        }else {
+            this.showNewCollectionInput = false
+        }
     }
 }

@@ -5,7 +5,8 @@ import {ReactiveFormsModule} from '@angular/forms'
 import { NewPostComponent } from './new-post.component';
 import { NewPostRoutingModule } from './new-post-routing.module';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
-
+import {NewPostService} from './new-post.service';
+import {CollectionService} from '../../services'
 import 'firebase/storage';
 
 @NgModule({
@@ -16,6 +17,10 @@ import 'firebase/storage';
     ],
     declarations: [
         NewPostComponent,
+    ],
+    providers:[
+        NewPostService,
+        CollectionService
     ],
     exports: [
         NewPostComponent,
