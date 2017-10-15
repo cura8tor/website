@@ -6,6 +6,7 @@ import { LandingComponent } from './landing.component';
 import {LandingRoutingModule} from './landing-routing.module';
 
 import {PostItemModule} from '../../modules';
+import {PostService} from '../../services'
 
 @NgModule({
     imports: [
@@ -15,6 +16,9 @@ import {PostItemModule} from '../../modules';
     ],
     declarations: [
         LandingComponent
+    ],
+    providers:[
+        PostService
     ],
     exports: [
         LandingComponent,

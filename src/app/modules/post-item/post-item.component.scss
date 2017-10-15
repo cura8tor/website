@@ -1,4 +1,7 @@
 // component css goes here
+$image_height:200px;
+$image_width:300px;
+
 div.post-details{
     background: #fff;
     position: relative;
@@ -7,4 +10,11 @@ div.post-details{
     border:solid thin #f1f1f1;
     border-top:none;
     font-size: 14px;
+}
+
+img{
+    width: $image_width;
+    min-height: $image_height;
+    height: $image_height;
+    max-height: $image_height;
 }

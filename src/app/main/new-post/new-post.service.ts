@@ -15,7 +15,7 @@ export class NewPostService {
                 ) {}
 
     createItem (value, userId){
-        const itemRef = this.db.list(`${this.dbItemName}/${userId}`);
+        const itemRef = this.db.list(`${this.dbItemName}`);
         return Observable.fromPromise(itemRef.push(value))
     }
 }

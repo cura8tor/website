@@ -52,13 +52,8 @@ export class NewPostComponent implements AfterViewInit, OnInit{
                 private newPostService:NewPostService,
                 private colService:CollectionService,
                 private afAuth:AngularFireAuth){
+
         Dropzone.autoDiscover = false
-        
-        /*this.afAuth.authState.subscribe(s=>{
-            this.colService.createCollection('Some collection', s.uid).subscribe(
-                s=>console.log(s)
-            )
-        })*/
     }
 
     ngAfterViewInit(): void {
@@ -82,8 +77,8 @@ export class NewPostComponent implements AfterViewInit, OnInit{
             demo:[null],
             postType:[this.projectType[0]],
             platform:[this.platforms[0]],
-            collectionName:[null],
-            collectionNew:[null]
+            collectionName:[null],//collections in the select box
+            collectionNew:[null]//collection in the textbox
         })
 
         this.afAuth.authState.subscribe(s=>{
@@ -109,32 +104,47 @@ export class NewPostComponent implements AfterViewInit, OnInit{
         const imagesRef = storageRef.child('items');
         const files:Array<any> = this.dpzObject.files
 
-        let tempData = {collectionName:'', collectionNew:'', image:[]};
-        Object.assign(tempData, value)
-
-        if(this.showNewCollectionInput){
-            tempData.collectionName = value.collectionNew
-        }
-        delete tempData.collectionNew
-
-        console.log(tempData)
-
         this.afAuth.authState.subscribe(user=>{
-            const itm = this.storage.storeItems(files, user.uid)
-                        .map((s:Array<any>)=>{
-                            console.log(s)
-                            const imagesArr = []
-                            s.forEach(({downloadURL, ref})=>{
-                                imagesArr.push({downloadURL, name: ref.name})
-                            })
+            let tempData = {    
+                                userId:user.uid,
+                                collectionName:'', 
+                                collectionNew:'', 
+                                image:[], 
+                                likes:0, 
+                                views:0,
+                                createdAt:firebase.database.ServerValue.TIMESTAMP
+                            };
                             
-                            tempData.image = imagesArr
+            Object.assign(tempData, value)
 
-                            this.newPostService.createItem(tempData, user.uid).subscribe(
-                                s=>console.log(s),
-                                e=>console.log(e)
-                            )
-                        })
+            let observables = []            
+
+            if(this.showNewCollectionInput){//if the new collection box is shown
+                tempData.collectionName = value.collectionNew
+
+                observables.push(this.colService.createCollection(tempData.collectionName,user.uid ))
+            }
+            delete tempData.collectionNew
+
+            observables.push(this.storage.storeItems(files, user.uid)
+            .map((s:Array<any>)=>{
+                const imagesArr = []
+                s.forEach(({downloadURL, ref})=>{
+                    imagesArr.push({downloadURL, name: ref.name})
+                })
+                
+                tempData.image = imagesArr
+
+                this.newPostService.createItem(tempData, user.uid).subscribe(
+                    s=>console.log(s),
+                    e=>console.log(e)
+                )
+            }))
+
+            Observable.forkJoin(observables).subscribe(
+                s=>console.log(s),
+                e=>console.log(e)
+            )
         })  
     }
 

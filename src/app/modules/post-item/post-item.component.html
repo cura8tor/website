@@ -1,8 +1,8 @@
 
     <a (click)="openImage()">
-        <img src="assets/images/thumbs/1.jpg" alt="img01"/>
+        <img [src]="post.image[0].downloadURL" alt="img01" width="300"/>
     </a>
     <div class="post-details">
-        <span><i class="mdi mdi-eye"></i> 10 </span>
-        <span><i class="mdi mdi-heart"></i> 250 </span>
+        <span><i class="mdi mdi-eye"></i> {{post.views}} </span>
+        <span><i class="mdi mdi-heart"></i> {{post.likes}} </span>
     </div>

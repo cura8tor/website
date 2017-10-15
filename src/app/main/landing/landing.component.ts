@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { GlobalEmitterService,NotificationService } from '../../services';
-
+import { Component, OnInit } from '@angular/core';
+import { GlobalEmitterService,NotificationService,PostService } from '../../services';
+import {AngularFireDatabase, AngularFireAction} from 'angularfire2/database'
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app'
 @Component({
     moduleId: module.id,
     selector: 'landing',
@@ -8,13 +10,16 @@ import { GlobalEmitterService,NotificationService } from '../../services';
     styleUrls: ['landing.component.scss'],
     providers:[NotificationService]
 })
-export class LandingComponent {
-    posts:any = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
+export class LandingComponent implements OnInit{
+    
+    posts$:Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
 
-    /*constructor (private _eventEmitter:GlobalEmitterService, 
-                 private _notifService:NotificationService){}
+    constructor (private postService:PostService) {}
 
-    test (){
-        this._eventEmitter.sendMessage(this._notifService.types.info,'<h3>eeee</h3>')
-    }*/
+    ngOnInit(): void {
+        this.posts$ = this.postService.fetchAllPosts()
+        //.subscribe(s=>
+          //  s.forEach(v=>console.log(v.payload.val()))
+        //)
+    }
 }

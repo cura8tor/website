@@ -7,11 +7,15 @@
 <div class="container-cura8tor">	
     <!-- Codrops top bar -->
     
-    <div class="main">
+    <div class="main" *ngIf="posts$ | async; let posts; else loading">
       <ul id="og-grid" class="og-grid">
-        <li *ngFor="let p of posts" class="post">
-          <post-item></post-item>
+        <li *ngFor="let p of posts.reverse()" class="post">
+          
+          <post-item [post]="p.payload.val()"></post-item>
+
         </li>
       </ul>
     </div>
   </div><!-- /container -->
+
+  <ng-template #loading>Loading&hellip;</ng-template>
