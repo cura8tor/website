@@ -1,0 +1,16 @@
+
+<div *ngIf="userType === userTypes.user; then user else commenter"></div>
+
+<ng-template #user>
+        <img class="img-circle"
+            [src]="image"
+            width="{{size}}"
+        />
+    </ng-template>
+    
+    <ng-template #commenter>
+        <img class="img-circle"
+            [src]="image" 
+            width="50"
+        />
+    </ng-template>

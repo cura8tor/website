@@ -10,7 +10,6 @@ import { NgxAni } from 'ngxani';
 })
 export class PostItemComponent {
     
-//p.payload.val().image[0].downloadURL
     likesCount:number = 10;
     @ViewChild('likes') likes: ElementRef;
     @Input() post:any;

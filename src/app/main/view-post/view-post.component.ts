@@ -21,21 +21,14 @@ export class ViewPostComponent implements OnInit,OnDestroy {
     loading:boolean = true
 
     ngOnInit(): void {
-
+        
         const handlePost = ({slug})=>{
-            const post$ = this.postService.fetchPost(slug)
-            const fetchUser$ = post$.switchMap((p:any) => {
-                console.log(p)
-                this.post = p
-                return this.postService.fetchUser(p.userId)
-            })
-            fetchUser$.subscribe(
-                u=>{
-                    console.log(u)
-                    this.user = u
+            this.postService.fetchPost(slug).subscribe(
+                p => {
+                    this.post = p
                     this.loading = false
                 },
-                e=>console.log(e)
+                e => console.error(e)//handle the error here
             )
         }
         this.sub = this.route.params.subscribe(handlePost)  

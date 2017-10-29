@@ -48,6 +48,22 @@ div{
             color: $greenish !important;
         }
     }
+
+    &.comment-box{
+        border-bottom: solid thin #f1f1f1;
+        margin-bottom: 10px;
+        padding: 10px;
+        input{
+            height: 35px;
+            border: none;
+            background: #f1f1f1;
+            width: 80%;
+            padding:10px;
+        }
+    }
+}
+i.platform {
+    font-size: xx-large
 }
 
 h2{

@@ -1,14 +1,11 @@
 <div class="col-xs-12 no-padding" *ngIf="!loading">
     <div class="col-xs-3 no-padding details">
         <div class="author-details text-center">
-            <img class="img-circle"
-                [src]="image"
-                width="60"
-            />
+            <user-avatar></user-avatar>
             <div class="author-meta">
                 by <strong>
                         <a [routerLink]="['/profile/t']">
-                            {{ user.displayName || user.firstName }}
+                            {{ post.user.displayName || post.user.firstName }}
                         </a>
                         In
                         <a>
@@ -22,19 +19,29 @@
                 <i class="mdi mdi-heart"></i> {{ post.likes }} &nbsp; &nbsp;
                 <i class="mdi mdi-eye"></i> {{ post.views }}
             </div>
+            <div>
+                <h3>Platform</h3>
+                <i class="{{ post.platform | platform }} platform"></i>
+            </div>
+            <div>
+                <h3>Tags</h3>
+                <a>{{post.postType}}</a>
+            </div>
             <div class="author-meta">
                 <i class="mdi mdi-comment-account-outline"></i> 
                 {{ post.description }}
             </div>
+            
         </div>
         <div class="col-xs-12 no-padding comments">
-    
+                <div class="comment-box">
+                    <user-avatar [size]="40"></user-avatar>
+                    <input type="text" placeholder="Comment here and press Enter..."/>
+                </div>
                 <article class="media">
                         <figure class="media-left">
                           <p class="image is-64x64">
-                            <img class="img-circle"
-                                src="http://bulma.io/images/placeholders/128x128.png" 
-                                width="50"/>
+                            <user-avatar [userType]="2"></user-avatar>
                           </p>
                         </figure>
                         <div class="media-content">
@@ -57,11 +64,12 @@
         <div class="col-xs-12 no-padding">
             <button class="delete pull-right" (click)="goBack()"></button>
         </div>
+        
         <div class="col-xs-12 no-padding text-center">
             <div class="text-center">
                 <h2>{{post.title}}</h2>
             </div>
-            <img [src]="sampleImg" />
+            <img [src]="post.image[0].downloadURL" />
         </div>
         <div class="like-button">
             <i class="mdi mdi-heart"></i> 

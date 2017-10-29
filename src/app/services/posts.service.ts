@@ -16,8 +16,9 @@ export class PostService {
         return this.db.list(`${this.dbName}`, ref=>ref.orderByChild('createdAt')).snapshotChanges()
     }
 
-    fetchPost (objId:string) {
-        return this.db.object(`${this.dbName}/${objId}`).valueChanges()
+    fetchPost (postId:string) {
+        const funcUrl = 'https://us-central1-cura8tor.cloudfunctions.net/post' 
+        return this.http.post(funcUrl, {postId})
     }
 
     fetchUser (userId:string) {
@@ -25,10 +26,10 @@ export class PostService {
         return this.http.post(funcUrl, {userId})
     }
 
-    /*fetchPostTest (postId) {
+    fetchPostTest (postId) {
         //const funcUrl = 'http://localhost:5000/cura8tor/us-central1/post'
         const funcUrl = 'https://us-central1-cura8tor.cloudfunctions.net/post' 
-        this.http.post(funcUrl, {postId}, {headers: new HttpHeaders('Content-Type:application/json')}).subscribe(
+        this.http.post(funcUrl, {userId:postId}, {headers: new HttpHeaders('Content-Type:application/json')}).subscribe(
             s=>console.log(s),
             e=>console.log(e)
         )
