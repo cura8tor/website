@@ -14,10 +14,11 @@ export class PostItemComponent {
     likesCount:number = 10;
     @ViewChild('likes') likes: ElementRef;
     @Input() post:any;
-    
+    @Input() key:string;
+
     constructor(private router:Router, private ngxAni:NgxAni){}
     
-    openImage(){
-        this.router.navigate(['view/t'])
+    openImage(key){
+        this.router.navigate([`view/${key}`])
     }
 }

@@ -11,7 +11,7 @@
       <ul id="og-grid" class="og-grid">
         <li *ngFor="let p of posts.reverse()" class="post">
           
-          <post-item [post]="p.payload.val()"></post-item>
+          <post-item [post]="p.payload.val()" [key]="p.payload.key"></post-item>
 
         </li>
       </ul>

@@ -37,6 +37,8 @@ export class HeaderComponentComponent {
                 this.isUserSignedIn = false
             }
         })
+
+        
     }
 
     private _showNotification (type?){

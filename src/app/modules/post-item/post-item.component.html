@@ -1,8 +1,11 @@
 
-    <a (click)="openImage()">
+    <a (click)="openImage(key)">
         <img [src]="post.image[0].downloadURL" alt="img01" width="300"/>
     </a>
     <div class="post-details">
-        <span><i class="mdi mdi-eye"></i> {{post.views}} </span>
-        <span><i class="mdi mdi-heart"></i> {{post.likes}} </span>
+        <span class="post-creator">Some name</span>
+        <span class="action-btns">
+            <span><i class="mdi mdi-eye"></i> {{post.views}} </span>
+            <span><i class="mdi mdi-heart"></i> {{post.likes}} </span>
+        </span>
     </div>

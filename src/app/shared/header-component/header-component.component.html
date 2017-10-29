@@ -33,14 +33,20 @@
                         <a class="navbar-item hoverable" [routerLink]="['/ddd']">
                             Discover
                         </a>
-                        <a class="navbar-item hoverable">
-                            Search
-                        </a>
+                        <div class="field" style="margin-top:15px">
+                                <p class="control has-icons-left has-icons-right">
+                                  <input class="input" type="email" placeholder="Search...">
+                                  <span class="icon is-small is-left">
+                                    <i class="mdi mdi-magnify"></i>
+                                  </span>
+                                </p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="navbar-end">
-                    <a class="navbar-item social" href="http://bulma.io/expo/">
+                    
+                    <!--<a class="navbar-item social" href="http://bulma.io/expo/">
                         <i class="mdi mdi-facebook-box"></i>
                     </a>
                     <a class="navbar-item social" href="http://bulma.io/expo/">
@@ -48,7 +54,7 @@
                     </a>
                     <a class="navbar-item social" href="http://bulma.io/expo/">
                         <i class="mdi mdi-github-circle"></i>
-                    </a>
+                    </a>-->
                     
                     <div style="display:flex" *ngIf="!isUserSignedIn">
                         <a class="navbar-item hoverable" 
